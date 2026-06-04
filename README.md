@@ -39,6 +39,16 @@
 
 <br/>
 
+<p>
+  <img src="screenshots/cinematic-jupiter.png" alt="Solar 3D cinematic Jupiter render with orbital paths and starfield" width="100%"/>
+</p>
+
+<p>
+  <sub>
+    Static WebGL observatory with live orbital propagation, local texture assets, and scientific UI overlays.
+  </sub>
+</p>
+
 </div>
 
 ---
@@ -94,6 +104,33 @@ The included `.nojekyll` file keeps GitHub Pages in plain static-file mode.
 The project deliberately keeps a low-friction runtime: one HTML entry point, no bundler, no package install, no backend, no database. The application loads structured data files first, then the renderer, then enhancement layers, and finally React / JSX UI surfaces mounted into separate roots. That makes the code easy to run locally while still supporting advanced features such as telemetry HUDs, command palette actions, multi-body comparison charts, guided tours, shareable hash links, and cinematic presentation modes.
 
 > **Core design principle:** show the Solar System honestly when possible, compress or magnify only when necessary, and always label what the current scale model is doing.
+
+---
+
+## Observatory Gallery
+
+<table>
+<tr>
+<td width="50%">
+<img src="screenshots/observatory-dashboard.png" alt="Solar 3D observatory dashboard focused on Earth with telemetry, minimap, scale controls, and selected-body data" width="100%"/>
+<br/><sub><b>Observatory Dashboard</b> — Earth-centered telemetry, hybrid scale controls, local texture rendering, and selected-body science cards.</sub>
+</td>
+<td width="50%">
+<img src="screenshots/reference-library.png" alt="Solar 3D reference library showing curated Solar System body cards" width="100%"/>
+<br/><sub><b>Reference Library</b> — NASA / ESA / JPL / IAU-oriented body catalogue, mission references, glossary, timeline, and source links.</sub>
+</td>
+</tr>
+<tr>
+<td width="50%">
+<img src="screenshots/compare-science-panel.png" alt="Solar 3D comparative analysis panel comparing Earth and Jupiter with normalized physical metrics" width="100%"/>
+<br/><sub><b>Comparative Analysis</b> — normalized bars and metric table for diameter, gravity, density, escape velocity, orbital distance, and moons.</sub>
+</td>
+<td width="50%">
+<img src="screenshots/cinematic-jupiter.png" alt="Solar 3D cinematic Jupiter render showing rings, stars, and orbital guide paths" width="100%"/>
+<br/><sub><b>Cinematic Frame</b> — clean WebGL capture for presentation, export, and science communication.</sub>
+</td>
+</tr>
+</table>
 
 ---
 
@@ -275,6 +312,59 @@ The app also exposes a magnification slider. Magnification is not hidden: the le
 ---
 
 ## Scientific Modules
+
+Solar 3D is designed as an inspectable scientific visualization, not a black-box animation. The renderer separates three concerns: **ephemeris state** (where a body is), **physical state** (what the body is), and **observational state** (what the camera or an Earth-based observer would measure). The UI surfaces the same quantities as readable telemetry, body cards, overlays, and comparison charts.
+
+### Mathematical Formulation
+
+The project uses simplified two-body / patched educational models where they are appropriate for browser-scale visualization. Symbols follow standard celestial-mechanics convention: `a` semi-major axis, `e` eccentricity, `i` inclination, `Ω` longitude of ascending node, `ω` argument of periapsis, `ν` true anomaly, `E` eccentric anomaly, `M` mean anomaly, `μ = G(M + m)` gravitational parameter, `r` heliocentric radius, and `Δ` observer-target distance.
+
+| Domain | Formula | Runtime Use |
+| --- | --- | --- |
+| Mean motion | $$n = \sqrt{\frac{\mu}{a^3}}$$ | Advances planetary and comet mean anomaly from epoch time |
+| Kepler equation | $$M = E - e\sin E$$ | Solves elliptical orbital position from mean anomaly |
+| True anomaly | $$\nu = 2\tan^{-1}\left(\sqrt{\frac{1+e}{1-e}}\tan\frac{E}{2}\right)$$ | Converts orbital-plane position to heliocentric scene coordinates |
+| Orbital radius | $$r = a(1 - e\cos E) = \frac{a(1-e^2)}{1 + e\cos\nu}$$ | Drives orbit paths, selected-body telemetry, and scale-bar context |
+| Vis-viva speed | $$v = \sqrt{\mu\left(\frac{2}{r} - \frac{1}{a}\right)}$$ | Computes orbital velocity cards and velocity-vector overlays |
+| Surface gravity | $$g = \frac{GM}{R^2}$$ | Body physics card and comparative analysis metrics |
+| Escape velocity | $$v_{esc} = \sqrt{\frac{2GM}{R}}$$ | Body physics card and normalized compare panel |
+| Hill sphere | $$r_H \approx a(1-e)\sqrt[3]{\frac{m}{3M_\odot}}$$ | Selected-body gravitational-domain overlay |
+| Barycentre offset | $$r_b = a\frac{m}{M_\odot + m}$$ | Sun-planet barycentre marker for large-planet systems |
+| Solar irradiance | $$S(r) = S_\oplus\left(\frac{1\,AU}{r}\right)^2$$ | Solar flux and equilibrium-temperature estimates |
+| Equilibrium temperature | $$T_{eq}=\left(\frac{S(1-A)}{4\epsilon\sigma}\right)^{1/4}$$ | Climate/energy balance card with albedo and emissivity assumptions |
+| Light-time | $$t_L = \frac{\Delta}{c}$$ | Observation panel delay in minutes or seconds |
+| Elongation | $$\cos\epsilon = \frac{\vec r_{target}\cdot\vec r_{sun}}{\lVert\vec r_{target}\rVert\,\lVert\vec r_{sun}\rVert}$$ | Earth-relative observing geometry |
+| Apparent magnitude | $$m \approx H + 5\log_{10}(r\Delta) + \Phi(\alpha)$$ | Approximate brightness display for educational comparison |
+
+The formulation is intentionally transparent: values are visible in UI cards, formulas are grouped in code by responsibility, and the README documents the approximation tier. For mission-grade astrometry, occultation prediction, spacecraft navigation, or telescope scheduling, use authoritative numerical ephemerides such as JPL Horizons.
+
+### Coordinate And Scale Pipeline
+
+```mermaid
+flowchart LR
+  A["Epoch elements\na, e, i, Ω, ω, M0"] --> B["Time propagation\nM = M0 + nΔt"]
+  B --> C["Kepler solve\nM = E - e sin E"]
+  C --> D["Orbital plane\nr, ν"]
+  D --> E["3D rotation\nΩ · i · ω"]
+  E --> F["Heliocentric AU\nx, y, z"]
+  F --> G["Scale transform\nhybrid / real distance / real size / true 1:1"]
+  G --> H["Scene graph + UI telemetry"]
+
+  style A fill:#101827,stroke:#62d9ea,color:#e8eef5
+  style C fill:#151f32,stroke:#d8b36a,color:#fff7d6
+  style G fill:#1a1324,stroke:#a78bff,color:#f5edff
+  style H fill:#06121f,stroke:#5aa7b6,color:#e8eef5
+```
+
+### Fidelity Contract
+
+| Layer | What It Is Good For | Deliberate Limit |
+| --- | --- | --- |
+| Keplerian propagation | Educational orbital geometry, relative motion, scale reasoning | Does not model full N-body perturbations or relativistic correction |
+| Spacecraft paths | Mission context and approximate trajectory storytelling | Not suitable for navigation-grade state vectors |
+| Visual scale modes | Honest demonstrations of distance/diameter tradeoffs | Hybrid mode intentionally compresses distance and magnifies bodies |
+| Photographic textures | Recognizable planetary surfaces and presentation quality | Texture lighting is illustrative, not a remote-sensing pipeline |
+| Observation panel | Light-time, elongation, phase, and approximate magnitude intuition | Apparent magnitude and phase functions are simplified |
 
 ### Live Astrometry
 
