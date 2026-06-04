@@ -1,0 +1,19 @@
+# OS and editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+
+# Logs and local environment files
+*.log
+.env
+.env.*
+
+# Optional local tooling output
+node_modules/
+dist/
+coverage/
+
+# Local scratch/example material that is not part of the Solar 3D app
+/solar-system-3d/
+/örnekreadme.md

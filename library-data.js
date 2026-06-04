@@ -1,0 +1,360 @@
+// ============================================================
+// LIBRARY — Reference content for the in-app encyclopaedia.
+// Curated from public-domain NASA/ESA/JPL/IAU sources.
+// ============================================================
+
+// ─── MISSIONS ─────────────────────────────────────────────
+const LIBRARY_MISSIONS = [
+  {
+    id: 'mariner10',
+    name: 'Mariner 10',
+    agency: 'NASA',
+    launched: 1973, ended: 1975,
+    status: 'Decommissioned (drifting heliocentric)',
+    targets: ['Venus', 'Mercury'],
+    blurb: 'First spacecraft to use gravity assist (Venus) to reach Mercury, and first to visit two planets. Mapped 45% of Mercury\u2019s surface.',
+    url: 'https://science.nasa.gov/mission/mariner-10/',
+  },
+  {
+    id: 'voyager1',
+    name: 'Voyager 1',
+    agency: 'NASA',
+    launched: 1977, ended: null,
+    status: 'Active — interstellar space',
+    targets: ['Jupiter', 'Saturn'],
+    blurb: 'Most distant human-made object (>24 billion km, 2024). Crossed the heliopause in August 2012 — first probe to reach interstellar space.',
+    url: 'https://voyager.jpl.nasa.gov/',
+  },
+  {
+    id: 'voyager2',
+    name: 'Voyager 2',
+    agency: 'NASA',
+    launched: 1977, ended: null,
+    status: 'Active — interstellar space',
+    targets: ['Jupiter', 'Saturn', 'Uranus', 'Neptune'],
+    blurb: 'Only spacecraft to visit Uranus (1986) and Neptune (1989). Discovered 10 moons and 2 rings of Uranus.',
+    url: 'https://voyager.jpl.nasa.gov/',
+  },
+  {
+    id: 'galileo',
+    name: 'Galileo',
+    agency: 'NASA',
+    launched: 1989, ended: 2003,
+    status: 'Mission complete (intentional Jupiter impact)',
+    targets: ['Jupiter', 'Galilean moons'],
+    blurb: 'First spacecraft to orbit an outer planet. Dropped an atmospheric probe into Jupiter and confirmed sub-surface ocean candidates on Europa.',
+    url: 'https://solarsystem.nasa.gov/missions/galileo/',
+  },
+  {
+    id: 'cassini',
+    name: 'Cassini–Huygens',
+    agency: 'NASA / ESA / ASI',
+    launched: 1997, ended: 2017,
+    status: 'Mission complete (Grand Finale)',
+    targets: ['Saturn', 'Titan', 'Enceladus'],
+    blurb: '13 years in Saturn orbit. Huygens probe landed on Titan in 2005 (first outer-system landing). Discovered Enceladus\u2019s water jets.',
+    url: 'https://science.nasa.gov/mission/cassini/',
+  },
+  {
+    id: 'newhorizons',
+    name: 'New Horizons',
+    agency: 'NASA',
+    launched: 2006, ended: null,
+    status: 'Active — Kuiper Belt',
+    targets: ['Pluto', 'Arrokoth'],
+    blurb: 'First Pluto flyby (14 July 2015). Continued to Arrokoth (2019) — the most distant object ever explored up close.',
+    url: 'https://science.nasa.gov/mission/new-horizons/',
+  },
+  {
+    id: 'juno',
+    name: 'Juno',
+    agency: 'NASA',
+    launched: 2011, ended: null,
+    status: 'Active — Jupiter polar orbit',
+    targets: ['Jupiter'],
+    blurb: 'Polar orbit revealing Jupiter\u2019s interior structure, magnetic field, and cyclones at the poles. Solar-powered at 5 AU — a first.',
+    url: 'https://www.missionjuno.swri.edu/',
+  },
+  {
+    id: 'parker',
+    name: 'Parker Solar Probe',
+    agency: 'NASA',
+    launched: 2018, ended: null,
+    status: 'Active — closest object to the Sun',
+    targets: ['Sun'],
+    blurb: 'First mission to "touch the Sun" — flew through the solar corona in 2021. Reaches 700,000 km/h at perihelion.',
+    url: 'https://science.nasa.gov/mission/parker-solar-probe/',
+  },
+  {
+    id: 'jwst',
+    name: 'James Webb Space Telescope',
+    agency: 'NASA / ESA / CSA',
+    launched: 2021, ended: null,
+    status: 'Active — L2 Lagrange point',
+    targets: ['Solar System & beyond'],
+    blurb: 'Largest space telescope. Has imaged every planet from Mars outward in unprecedented infrared detail, including the rings of Neptune.',
+    url: 'https://webb.nasa.gov/',
+  },
+  {
+    id: 'osirisrex',
+    name: 'OSIRIS-REx / OSIRIS-APEX',
+    agency: 'NASA',
+    launched: 2016, ended: null,
+    status: 'Active — en route to Apophis',
+    targets: ['Bennu', 'Apophis'],
+    blurb: 'Returned a 121-gram sample from asteroid Bennu in September 2023. Extended mission targets near-Earth asteroid Apophis.',
+    url: 'https://science.nasa.gov/mission/osiris-rex/',
+  },
+  {
+    id: 'perseverance',
+    name: 'Perseverance + Ingenuity',
+    agency: 'NASA',
+    launched: 2020, ended: null,
+    status: 'Active — Jezero Crater',
+    targets: ['Mars'],
+    blurb: 'Caching rock cores for future return. Ingenuity helicopter flew 72 times — first powered flight on another world.',
+    url: 'https://mars.nasa.gov/mars2020/',
+  },
+  {
+    id: 'bepicolombo',
+    name: 'BepiColombo',
+    agency: 'ESA / JAXA',
+    launched: 2018, ended: null,
+    status: 'In transit — Mercury orbit insertion 2026',
+    targets: ['Mercury'],
+    blurb: 'Two orbiters arriving at Mercury for a four-year science mission — magnetic field, surface composition, and exosphere.',
+    url: 'https://www.esa.int/Science_Exploration/Space_Science/BepiColombo',
+  },
+  {
+    id: 'juice',
+    name: 'JUICE',
+    agency: 'ESA',
+    launched: 2023, ended: null,
+    status: 'In transit — Jupiter arrival 2031',
+    targets: ['Ganymede', 'Europa', 'Callisto'],
+    blurb: 'Jupiter Icy Moons Explorer — first orbiter of a moon other than our own (Ganymede). Probing habitability of the Galilean ocean worlds.',
+    url: 'https://www.esa.int/Science_Exploration/Space_Science/Juice',
+  },
+  {
+    id: 'europaclipper',
+    name: 'Europa Clipper',
+    agency: 'NASA',
+    launched: 2024, ended: null,
+    status: 'In transit — Jupiter arrival 2030',
+    targets: ['Europa'],
+    blurb: 'Will perform ~50 close flybys of Europa to characterize the subsurface ocean and assess habitability.',
+    url: 'https://europa.nasa.gov/',
+  },
+  {
+    id: 'dragonfly',
+    name: 'Dragonfly',
+    agency: 'NASA',
+    launched: 2027, ended: null,
+    status: 'In development — Titan arrival 2034',
+    targets: ['Titan'],
+    blurb: 'Nuclear-powered rotorcraft (octocopter) that will hop across Titan\u2019s methane-soaked surface for prebiotic chemistry studies.',
+    url: 'https://dragonfly.jhuapl.edu/',
+  },
+];
+
+// ─── CONCEPTS ─────────────────────────────────────────────
+const LIBRARY_CONCEPTS = [
+  {
+    id: 'keplerlaws',
+    title: "Kepler's Three Laws of Planetary Motion",
+    category: 'Orbital mechanics',
+    body: '1) Orbits are ellipses with the Sun at one focus. 2) A line from the Sun to a planet sweeps equal areas in equal times — planets move fastest at perihelion. 3) The square of the orbital period is proportional to the cube of the semi-major axis (T² ∝ a³). These laws — published 1609–1619 — became the empirical foundation Newton would later explain with gravity.',
+    url: 'https://en.wikipedia.org/wiki/Kepler%27s_laws_of_planetary_motion',
+  },
+  {
+    id: 'gravity',
+    title: 'Newtonian Gravity & General Relativity',
+    category: 'Fundamental physics',
+    body: 'Newton (1687): F = G·m₁·m₂/r² explains nearly every orbit in the Solar System. Einstein (1915): mass curves spacetime; gravity is the geometry of that curvature. General relativity is needed to explain Mercury\u2019s perihelion precession (43"/century) and GPS satellite clock drift (38 µs/day).',
+    url: 'https://en.wikipedia.org/wiki/General_relativity',
+  },
+  {
+    id: 'au',
+    title: 'The Astronomical Unit (AU)',
+    category: 'Units of measure',
+    body: 'Defined by IAU 2012 as exactly 149,597,870,700 metres — the mean Earth–Sun distance. Light crosses 1 AU in 499 seconds (≈ 8 min 20 s). Voyager 1 is at ~164 AU; the nearest star Proxima Centauri is at 268,553 AU.',
+    url: 'https://www.iau.org/public/themes/measuring/',
+  },
+  {
+    id: 'escape',
+    title: 'Escape Velocity',
+    category: 'Orbital mechanics',
+    body: 'The minimum speed needed to break free of a body\u2019s gravity without further propulsion. v_esc = √(2GM/r). Earth: 11.2 km/s. Jupiter: 59.5 km/s. The Sun (from Earth\u2019s orbit): 42.1 km/s. Voyager 1 had to exceed solar escape after Jupiter\u2019s gravity assist.',
+    url: 'https://en.wikipedia.org/wiki/Escape_velocity',
+  },
+  {
+    id: 'roche',
+    title: 'The Roche Limit',
+    category: 'Tidal mechanics',
+    body: 'The distance within which a satellite held together by gravity alone is torn apart by tidal forces from its primary. d_Roche ≈ 2.44·R·(ρ_M/ρ_m)^⅓. Saturn\u2019s rings sit entirely inside its Roche limit — they cannot accrete into a moon. Shoemaker–Levy 9 broke apart at Jupiter\u2019s Roche limit in 1992 before impacting in 1994.',
+    url: 'https://en.wikipedia.org/wiki/Roche_limit',
+  },
+  {
+    id: 'hill',
+    title: 'The Hill Sphere',
+    category: 'Orbital mechanics',
+    body: 'The region around a body where its gravity dominates over the parent star\u2019s. r_Hill ≈ a·(m/3M)^⅓. Earth\u2019s Hill radius is ~1.5 million km — the Moon orbits well within it (384,400 km). Beyond a body\u2019s Hill sphere, satellites cannot remain bound.',
+    url: 'https://en.wikipedia.org/wiki/Hill_sphere',
+  },
+  {
+    id: 'lagrange',
+    title: 'Lagrange Points',
+    category: 'Three-body problem',
+    body: 'Five positions in a two-body rotating frame where a small object can stay stationary relative to both. L1, L2, L3 are unstable (saddle points); L4 and L5 are stable. JWST orbits Earth\u2019s L2. Jupiter\u2019s L4 and L5 host the Trojan asteroids — over 12,000 confirmed.',
+    url: 'https://en.wikipedia.org/wiki/Lagrange_point',
+  },
+  {
+    id: 'magnetosphere',
+    title: 'Planetary Magnetospheres',
+    category: 'Space physics',
+    body: 'A region of space where charged particles are controlled by a planet\u2019s magnetic field, deflecting the solar wind. Earth\u2019s magnetosphere shields the atmosphere from erosion; Mars likely lost most of its atmosphere when its magnetic dynamo died ~4 Gyr ago. Jupiter\u2019s magnetosphere is the largest structure in the Solar System after the heliosphere.',
+    url: 'https://en.wikipedia.org/wiki/Magnetosphere',
+  },
+  {
+    id: 'tidallocking',
+    title: 'Tidal Locking',
+    category: 'Tidal mechanics',
+    body: 'When a body\u2019s rotation period equals its orbital period — same face always pointing toward the parent. The Moon is tidally locked to Earth; Pluto and Charon are mutually locked. Achieved over time as tidal bulges dissipate rotational energy as heat.',
+    url: 'https://en.wikipedia.org/wiki/Tidal_locking',
+  },
+  {
+    id: 'lighttime',
+    title: 'Light-Time & Signal Delay',
+    category: 'Communications',
+    body: 'Radio signals travel at c (299,792 km/s). Light from the Sun reaches Earth in 499 s; from Pluto in ~5.5 hours; from Voyager 1 in ~23 hours one-way (2024). Every command to Voyager takes nearly a day to arrive — the spacecraft executes autonomously.',
+    url: 'https://en.wikipedia.org/wiki/Light-time_correction',
+  },
+  {
+    id: 'habitable',
+    title: 'The Habitable Zone',
+    category: 'Astrobiology',
+    body: 'The range of distances from a star where liquid water can exist on a planetary surface. For the Sun: ~0.95–1.67 AU (conservative). Earth sits inside; Mars at the edge. Subsurface ocean worlds like Europa and Enceladus may host life far outside this zone.',
+    url: 'https://en.wikipedia.org/wiki/Habitable_zone',
+  },
+  {
+    id: 'planetdef',
+    title: 'IAU Definition of a Planet (2006)',
+    category: 'Taxonomy',
+    body: 'A planet must (1) orbit the Sun, (2) have sufficient mass for hydrostatic equilibrium (be nearly round), and (3) have "cleared the neighborhood" around its orbit. Pluto fails the third criterion — sharing its orbital region with other Kuiper Belt objects — and was reclassified as a dwarf planet on 24 August 2006.',
+    url: 'https://www.iau.org/static/resolutions/Resolution_GA26-5-6.pdf',
+  },
+];
+
+// ─── GLOSSARY ────────────────────────────────────────────
+const LIBRARY_GLOSSARY = [
+  { term: 'Albedo', defn: 'Fraction of incident light a body reflects. Earth: 0.30, fresh snow: 0.85, asphalt: 0.04. Enceladus reflects 99% — brightest body in the Solar System.' },
+  { term: 'Aphelion', defn: 'Point in an orbit farthest from the Sun. Earth\u2019s aphelion (~152.1 million km) occurs around 4 July.' },
+  { term: 'Apparent magnitude', defn: 'Logarithmic brightness scale; lower is brighter. Sun: −26.74, full Moon: −12.7, Sirius: −1.46, naked-eye limit: +6.5.' },
+  { term: 'Conjunction', defn: 'Two bodies share the same celestial longitude as seen from Earth. Inferior: planet between Earth and Sun. Superior: planet beyond the Sun.' },
+  { term: 'Eccentricity', defn: 'How non-circular an orbit is. 0 = perfect circle, <1 = ellipse, =1 = parabola, >1 = hyperbola. Earth: 0.0167. Halley\u2019s Comet: 0.967.' },
+  { term: 'Ecliptic', defn: 'The plane of Earth\u2019s orbit around the Sun; all major planets orbit within ~7° of it.' },
+  { term: 'Heliopause', defn: 'Boundary where solar wind pressure equals interstellar medium pressure — the outer edge of the heliosphere, at ~120 AU.' },
+  { term: 'Inclination', defn: 'Tilt of an orbital plane relative to a reference plane (ecliptic for planets). Pluto: 17.16°. Mercury: 7.00°.' },
+  { term: 'Libration', defn: 'Apparent rocking of a tidally-locked body, allowing us to see slightly more than half its surface. The Moon\u2019s libration exposes ~59% over time.' },
+  { term: 'Opposition', defn: 'A superior planet appears opposite the Sun in Earth\u2019s sky — closest approach and brightest visibility. Mars opposition every ~26 months.' },
+  { term: 'Parsec', defn: 'Distance at which 1 AU subtends 1 arcsecond. 1 pc = 3.26 light-years = 206,265 AU.' },
+  { term: 'Perihelion', defn: 'Point in an orbit closest to the Sun. Earth\u2019s perihelion (~147.1 million km) occurs around 3 January.' },
+  { term: 'Precession', defn: 'Slow conical wobble of a rotation axis. Earth\u2019s axis precesses every 25,772 years; Polaris will no longer be the North Star by ~3000 CE.' },
+  { term: 'Resonance', defn: 'Two orbital periods in a simple integer ratio. Neptune:Pluto is 3:2. Jupiter\u2019s inner moons Io:Europa:Ganymede form a 4:2:1 Laplace resonance.' },
+  { term: 'Semi-major axis (a)', defn: 'Half the longest diameter of an ellipse — the orbit\u2019s "average" radius and the basis for AU measurements.' },
+  { term: 'Synodic period', defn: 'Time between identical configurations of two bodies (e.g. consecutive full moons: 29.53 days, vs. sidereal 27.32 d).' },
+  { term: 'Terminator', defn: 'The line dividing the lit and dark sides of a planet or moon. The most dramatic surface features photograph best at the terminator.' },
+];
+
+// ─── REFERENCES (curated sources for further reading) ────────────────
+const LIBRARY_REFERENCES = [
+  {
+    category: 'Official agencies',
+    links: [
+      { name: 'NASA Solar System Exploration', url: 'https://science.nasa.gov/solar-system/', desc: 'Primary public-facing hub for NASA mission data and discoveries.' },
+      { name: 'NASA Planetary Fact Sheets', url: 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/', desc: 'Compact tabular reference for every Solar System body — gold standard for numeric values.' },
+      { name: 'ESA Science', url: 'https://www.esa.int/Science_Exploration/Space_Science', desc: 'European Space Agency mission portal — Cassini, JUICE, BepiColombo, ExoMars.' },
+      { name: 'JAXA Space Science', url: 'https://www.isas.jaxa.jp/en/', desc: 'Japan\u2019s ISAS — Hayabusa sample-return missions, Akatsuki at Venus.' },
+      { name: 'JPL Solar System Dynamics', url: 'https://ssd.jpl.nasa.gov/', desc: 'Authoritative ephemerides, Horizons system, orbital elements for every known object.' },
+      { name: 'IAU', url: 'https://www.iau.org/', desc: 'International Astronomical Union — official nomenclature and definitions.' },
+    ],
+  },
+  {
+    category: 'Imagery & data archives',
+    links: [
+      { name: 'NASA Images & Media Library', url: 'https://images.nasa.gov/', desc: 'Free, public-domain imagery from every NASA mission.' },
+      { name: 'PDS (Planetary Data System)', url: 'https://pds.nasa.gov/', desc: 'Permanent archive of raw mission data — every Voyager image, every Cassini observation.' },
+      { name: 'Hubble Space Telescope', url: 'https://hubblesite.org/', desc: 'Deep planetary monitoring (Jupiter, Neptune storms), high-res imagery.' },
+      { name: 'JWST Public Images', url: 'https://webbtelescope.org/', desc: 'Infrared imagery — including ring systems invisible to other instruments.' },
+    ],
+  },
+  {
+    category: 'Educational deep-dives',
+    links: [
+      { name: 'NASA Eyes on the Solar System', url: 'https://eyes.nasa.gov/apps/solar-system/', desc: 'NASA\u2019s real-time 3D Solar System visualisation — the gold standard for interactive learning.' },
+      { name: 'Stellarium Web', url: 'https://stellarium-web.org/', desc: 'Real-time sky simulation — view the Solar System from any location and date.' },
+      { name: 'Wikipedia: Solar System', url: 'https://en.wikipedia.org/wiki/Solar_System', desc: 'Comprehensive overview with extensive citations to peer-reviewed sources.' },
+      { name: 'Planetary Society', url: 'https://www.planetary.org/', desc: 'Non-profit advocacy and education — accessible explainers, mission tracker.' },
+    ],
+  },
+  {
+    category: 'Research & peer-reviewed',
+    links: [
+      { name: 'NASA ADS (Astrophysics Data System)', url: 'https://ui.adsabs.harvard.edu/', desc: 'Full-text searchable archive of astronomical research papers since 1825.' },
+      { name: 'arXiv astro-ph', url: 'https://arxiv.org/list/astro-ph/recent', desc: 'Preprint server for current astrophysics research — daily new papers.' },
+      { name: 'Icarus Journal', url: 'https://www.sciencedirect.com/journal/icarus', desc: 'Premier peer-reviewed journal dedicated to Solar System studies.' },
+    ],
+  },
+];
+
+// ─── BODY-SPECIFIC REFERENCE LINKS ────────────────────
+// Per-body links shown when a body is selected in the library.
+const LIBRARY_BODY_LINKS = {
+  sun:     { wiki: 'https://en.wikipedia.org/wiki/Sun',     nasa: 'https://science.nasa.gov/sun/',     fact: 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html' },
+  mercury: { wiki: 'https://en.wikipedia.org/wiki/Mercury_(planet)', nasa: 'https://science.nasa.gov/mercury/', fact: 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/mercuryfact.html' },
+  venus:   { wiki: 'https://en.wikipedia.org/wiki/Venus',   nasa: 'https://science.nasa.gov/venus/',   fact: 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html' },
+  earth:   { wiki: 'https://en.wikipedia.org/wiki/Earth',   nasa: 'https://science.nasa.gov/earth/',   fact: 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html' },
+  mars:    { wiki: 'https://en.wikipedia.org/wiki/Mars',    nasa: 'https://science.nasa.gov/mars/',    fact: 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html' },
+  jupiter: { wiki: 'https://en.wikipedia.org/wiki/Jupiter', nasa: 'https://science.nasa.gov/jupiter/', fact: 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/jupiterfact.html' },
+  saturn:  { wiki: 'https://en.wikipedia.org/wiki/Saturn',  nasa: 'https://science.nasa.gov/saturn/',  fact: 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/saturnfact.html' },
+  uranus:  { wiki: 'https://en.wikipedia.org/wiki/Uranus',  nasa: 'https://science.nasa.gov/uranus/',  fact: 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/uranusfact.html' },
+  neptune: { wiki: 'https://en.wikipedia.org/wiki/Neptune', nasa: 'https://science.nasa.gov/neptune/', fact: 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptunefact.html' },
+  pluto:   { wiki: 'https://en.wikipedia.org/wiki/Pluto',   nasa: 'https://science.nasa.gov/dwarf-planets/pluto/', fact: 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/plutofact.html' },
+};
+
+// ─── TIMELINE — Key milestones in Solar System exploration ────────────
+const LIBRARY_TIMELINE = [
+  { year: 1543, event: 'Copernicus publishes De revolutionibus — heliocentric Solar System.' },
+  { year: 1609, event: 'Galileo turns his telescope skyward; discovers Jupiter\u2019s four largest moons.' },
+  { year: 1610, event: 'Galileo observes Saturn\u2019s "handles" — the rings, though he can\u2019t resolve them.' },
+  { year: 1655, event: 'Huygens discovers Titan and correctly identifies Saturn\u2019s rings.' },
+  { year: 1687, event: 'Newton publishes Principia — universal gravitation explains all known orbits.' },
+  { year: 1781, event: 'William Herschel discovers Uranus — the first new planet found since antiquity.' },
+  { year: 1846, event: 'Neptune predicted mathematically by Le Verrier and Adams; observed by Galle.' },
+  { year: 1930, event: 'Clyde Tombaugh discovers Pluto at Lowell Observatory.' },
+  { year: 1957, event: 'Sputnik 1 — first artificial satellite. Space Age begins.' },
+  { year: 1959, event: 'Luna 3 photographs the far side of the Moon for the first time.' },
+  { year: 1962, event: 'Mariner 2 flies past Venus — first successful interplanetary mission.' },
+  { year: 1969, event: 'Apollo 11 — humans land on the Moon.' },
+  { year: 1976, event: 'Viking 1 & 2 land on Mars — first successful Martian surface missions.' },
+  { year: 1977, event: 'Voyager 1 & 2 launch. The Grand Tour of the outer planets begins.' },
+  { year: 1986, event: 'Voyager 2 flies past Uranus — still the only spacecraft to do so.' },
+  { year: 1989, event: 'Voyager 2 flies past Neptune — completes the planetary survey.' },
+  { year: 1992, event: 'First Kuiper Belt object (1992 QB1) confirmed beyond Pluto.' },
+  { year: 1995, event: 'First confirmed exoplanet around a Sun-like star (51 Pegasi b).' },
+  { year: 2005, event: 'Huygens lands on Titan — most distant landing in history.' },
+  { year: 2006, event: 'Pluto reclassified as a dwarf planet by the IAU.' },
+  { year: 2012, event: 'Voyager 1 enters interstellar space.' },
+  { year: 2015, event: 'New Horizons flies past Pluto. Dawn orbits Ceres.' },
+  { year: 2019, event: 'New Horizons flies past Arrokoth — most distant object explored up close.' },
+  { year: 2021, event: 'Parker Solar Probe "touches" the Sun, flying through the corona.' },
+  { year: 2023, event: 'OSIRIS-REx returns Bennu sample to Earth.' },
+  { year: 2024, event: 'Europa Clipper launched toward Jupiter\u2019s icy moon.' },
+];
+
+window.LIBRARY_MISSIONS = LIBRARY_MISSIONS;
+window.LIBRARY_CONCEPTS = LIBRARY_CONCEPTS;
+window.LIBRARY_GLOSSARY = LIBRARY_GLOSSARY;
+window.LIBRARY_REFERENCES = LIBRARY_REFERENCES;
+window.LIBRARY_BODY_LINKS = LIBRARY_BODY_LINKS;
+window.LIBRARY_TIMELINE = LIBRARY_TIMELINE;
