@@ -77,6 +77,12 @@ html, body {
   pointer-events: none;
 }
 #ui-root > * { pointer-events: auto; }
+
+#ui-root:has(.lib-backdrop),
+#ui-root:has(.cmdk-backdrop) {
+  z-index: 500;
+}
+
 .middle-area {
   grid-area: middle;
   position: relative;
@@ -6472,7 +6478,7 @@ function AppInner({ containerRef }) {
 
 init();
 </script>
-<script type="text/babel" src="addons.jsx?v=2"></script>
+<script type="text/babel" src="addons.jsx?v=4"></script>
 <script type="text/babel" src="tweaks-panel.jsx?v=1"></script>
 <script type="text/babel" src="premium-tweaks.jsx?v=1"></script>
 <script type="text/babel" src="pro-tools.jsx?v=1"></script>

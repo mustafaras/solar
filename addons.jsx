@@ -69,7 +69,7 @@ const css = `
 /* ── Generic overlay panel ── */
 .ax-backdrop {
   position: fixed; inset: 0; z-index: 250;
-  background: radial-gradient(ellipse at center, rgba(2,6,18,0.82), rgba(2,6,18,0.94));
+  background: radial-gradient(ellipse at center, rgba(2,6,18,0.96), rgba(2,6,18,0.99));
   backdrop-filter: blur(7px);
   display: flex; align-items: center; justify-content: center; padding: 28px;
   animation: axFade 0.25s ease;
@@ -77,7 +77,7 @@ const css = `
 @keyframes axFade { from { opacity: 0; } to { opacity: 1; } }
 .ax-modal {
   width: 100%; max-width: 1080px; max-height: calc(100vh - 56px);
-  background: linear-gradient(180deg, rgba(8,16,32,0.98), rgba(4,10,22,0.99));
+  background: linear-gradient(180deg, rgb(8,16,32), rgb(4,10,22));
   border: 1px solid rgba(0,200,255,0.42); border-radius: 16px;
   box-shadow: 0 30px 80px rgba(0,0,0,0.7);
   display: flex; flex-direction: column; overflow: hidden;
@@ -185,7 +185,14 @@ const css = `
 .ax-badge-mini .lbl { font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.06em; color: #9ec0e0; text-transform: uppercase; }
 
 /* ── Surface view ── */
-.ax-surface { width: 100%; max-width: 1180px; height: calc(100vh - 56px); display: flex; flex-direction: column; }
+.ax-surface {
+  width: 100%; max-width: 1180px; height: calc(100vh - 56px);
+  display: flex; flex-direction: column;
+  background: linear-gradient(180deg, rgb(8,16,32), rgb(4,10,22));
+  border: 1px solid rgba(0,200,255,0.42); border-radius: 16px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+  padding: 14px;
+}
 .ax-surface-canvas { flex: 1; position: relative; border-radius: 16px; overflow: hidden; border: 1px solid rgba(0,200,255,0.3); background: #02050d; min-height: 0; }
 .ax-surface-canvas canvas { display: block; width: 100%; height: 100%; }
 .ax-surface-info { position: absolute; left: 18px; bottom: 18px; max-width: 360px; background: rgba(4,10,24,0.78); border: 1px solid rgba(0,160,220,0.25); border-radius: 12px; padding: 14px 16px; backdrop-filter: blur(10px); }
@@ -919,6 +926,13 @@ function AddonsApp() {
   const [toast, setToast] = useState(null);
   const [selId, setSelId] = useState(window.__solarSelectedId || null);
   const [layers, setLayers] = useState({ oort:false, stars:false, sound:false, gyro:false });
+
+  React.useLayoutEffect(() => {
+    const root = document.getElementById('addons-root');
+    if (!root) return;
+    root.style.zIndex = view ? '500' : '14';
+    return () => { root.style.zIndex = '14'; };
+  }, [view]);
 
   useEffect(() => {
     const onSel = (e) => setSelId(e.detail);
