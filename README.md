@@ -6,6 +6,7 @@
   <a href="https://react.dev"><img src="https://img.shields.io/badge/React-18.3.1-61dafb?style=for-the-badge&logo=react&logoColor=white" alt="React 18.3.1"/></a>
   <a href="https://threejs.org"><img src="https://img.shields.io/badge/Three.js-r128-000000?style=for-the-badge&logo=threedotjs&logoColor=white" alt="Three.js r128"/></a>
   <a href="https://www.khronos.org/webgl/"><img src="https://img.shields.io/badge/WebGL-GPU_3D-990000?style=for-the-badge&logo=webgl&logoColor=white" alt="WebGL"/></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-16a34a?style=for-the-badge" alt="MIT License"/></a>
   <img src="https://img.shields.io/badge/Build-Zero_step-38e1d6?style=for-the-badge" alt="Zero build"/>
 </p>
 
@@ -690,7 +691,7 @@ Before considering a change complete:
 
 ## License
 
-No explicit license file is currently included in this workspace. Treat the code and local assets as private unless a license is added by the project owner.
+Released under the MIT License. See [LICENSE](LICENSE) for the full license text.
 
 ---
 
